@@ -24,4 +24,18 @@ rebuild – automatically restart containers(The "rebuild" action specifies a pa
 ```Validation:```
 Open app/views/todos.ejs in a text or code editor, then change the text on line 18.
 Save the changes in app/views/todos.ejs.
-View your application at http://localhost:3000 to see the changes in real-time.![image](https://github.com/user-attachments/assets/f0621172-0fec-4cf5-8def-60f892057580)
+View your application at http://localhost:3000 to see the changes in real-time.
+
+># Dockerfile
+
+--mount=type=bind: Mounts the package.json and package-lock.json from the host to the container.This avoids copying the files into the container during this layer, optimizing the build.
+
+Cache Mount: --mount=type=cache,target=/root/.npm: Uses a cache for npm modules to speed up subsequent builds by storing dependencies.
+
+npm ci: Ensures clean installation based on package-lock.json.
+
+The --include=dev flag installs development dependencies as they are needed for the next steps.
+
+RUN npm install -g nodemon: Installs nodemon globally in the container to enable hot-reloading during development.
+
+CMD npm run dev(or CMD npm start, for prod): npm run dev typically starts the app in development mode, allowing hot-reloading with tools like nodemon.
