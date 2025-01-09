@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+  node:
+    image: node
+    command: tail -f /dev/null
+    volumes:
+      - shared-data:/shared
+  nginx:
+    image: nginx
+    volumes:
+      - shared-data:/home/app/shared
+
+volumes:
+  shared-data:
